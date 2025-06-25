@@ -56,6 +56,11 @@ class DeploymentManager:
         """Execute shell command with optional dry-run"""
         if self.dry_run:
             self.logger.info(f"[DRY RUN] Would execute: {cmd}")
+            # Return realistic values for common commands in dry run mode
+            if "git branch --show-current" in cmd:
+                return 0, "dev", ""
+            elif "git status --porcelain" in cmd:
+                return 0, "", ""
             return 0, "", ""
             
         self.logger.debug(f"Executing: {cmd}")
@@ -303,6 +308,10 @@ def main():
     # Deployment commands
     subparsers = parser.add_subparsers(dest="command", help="Deployment commands")
     
+    # Global options (add before subparsers)
+    parser.add_argument("--dry-run", action="store_true", help="Show what would be done without executing")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
+    
     # Deploy command
     deploy_parser = subparsers.add_parser("deploy", help="Deploy to environments")
     deploy_parser.add_argument("--target", default="prod", choices=["dev", "qa", "stage", "prod"],
@@ -318,10 +327,6 @@ def main():
     
     # Status command
     status_parser = subparsers.add_parser("status", help="Show deployment status")
-    
-    # Global options
-    parser.add_argument("--dry-run", action="store_true", help="Show what would be done without executing")
-    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
     
     args = parser.parse_args()
     
