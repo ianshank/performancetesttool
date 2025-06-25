@@ -624,15 +624,22 @@ Focus on:
             return {"p50": 0.0, "p90": 0.0, "p95": 0.0, "p99": 0.0}
         response_times = sorted(response_times)
         n = len(response_times)
-        def lower_percentile(p):
-            k = int(p / 100 * n)
-            k = min(max(k, 1), n) - 1
-            return round(response_times[k], 2)
+        def interp_percentile(p):
+            if n == 1:
+                return response_times[0]
+            k = (p / 100) * (n - 1)
+            f = int(k)
+            c = min(f + 1, n - 1)
+            if f == c:
+                return round(response_times[int(k)], 2)
+            d0 = response_times[f] * (c - k)
+            d1 = response_times[c] * (k - f)
+            return round(d0 + d1, 2)
         return {
-            "p50": lower_percentile(50),
-            "p90": lower_percentile(90),
-            "p95": lower_percentile(95),
-            "p99": lower_percentile(99)
+            "p50": interp_percentile(50),
+            "p90": interp_percentile(90),
+            "p95": interp_percentile(95),
+            "p99": interp_percentile(99)
         }
 
     async def generate_ai_insights(self, analysis, raw_data=None, provider="openai"):

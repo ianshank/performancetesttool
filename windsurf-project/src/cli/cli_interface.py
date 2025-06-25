@@ -179,6 +179,9 @@ Main Menu:
             header_value = input(f"Enter value for {header_key}: ").strip()
             headers[header_key] = header_value
         
+        if not url:
+            print("Invalid URL.")
+            return {}
         return {
             "test_name": test_name,
             "targets": [{
@@ -208,7 +211,7 @@ Main Menu:
             db_type = "mongodb"
         else:
             print("Invalid database type.")
-            return None
+            return {}
         
         host = input("Enter database host: ").strip()
         port = input("Enter database port: ").strip()
@@ -242,7 +245,7 @@ Main Menu:
             mq_type = "redis"
         else:
             print("Invalid message queue type.")
-            return None
+            return {}
         
         host = input("Enter message queue host: ").strip()
         port = input("Enter message queue port: ").strip()
@@ -302,7 +305,9 @@ Main Menu:
         """Configure HTTP target for mixed test"""
         url = input("Enter target URL: ").strip()
         method = input("Enter HTTP method (default: GET): ").strip().upper() or "GET"
-        
+        if not url:
+            print("Invalid HTTP target configuration.")
+            return {}
         return {
             "type": "http",
             "url": url,
@@ -323,12 +328,15 @@ Main Menu:
             db_type = "mongodb"
         else:
             print("Invalid database type.")
-            return None
+            return {}
         
         host = input("Enter database host: ").strip()
         database = input("Enter database name: ").strip()
         query = input("Enter SQL query: ").strip()
         
+        if not host or not database or not query:
+            print("Invalid database target configuration.")
+            return {}
         return {
             "type": "database",
             "db_type": db_type,
@@ -348,11 +356,13 @@ Main Menu:
             mq_type = "redis"
         else:
             print("Invalid message queue type.")
-            return None
+            return {}
         
         host = input("Enter message queue host: ").strip()
         queue = input("Enter queue name: ").strip()
-        
+        if not host or not queue:
+            print("Invalid message queue target configuration.")
+            return {}
         return {
             "type": "message_queue",
             "mq_type": mq_type,
@@ -550,15 +560,8 @@ For more information, visit the project documentation.
                     "queue": getattr(args, 'mq_queue', None)
                 }]
         else:
-            # Fallback: prioritize HTTP > DB > MQ
-            if has_http:
-                config["targets"] = [{
-                    "type": "http",
-                    "url": args.target_url,
-                    "method": getattr(args, 'method', 'GET'),
-                    "expected_status": getattr(args, 'expected_status', 200)
-                }]
-            elif has_db:
+            # Fallback: prioritize DB > MQ > HTTP
+            if has_db:
                 config["targets"] = [{
                     "type": "database",
                     "db_type": args.db_type,
@@ -574,6 +577,13 @@ For more information, visit the project documentation.
                     "host": getattr(args, 'mq_host', None),
                     "port": getattr(args, 'mq_port', None),
                     "queue": getattr(args, 'mq_queue', None)
+                }]
+            elif has_http:
+                config["targets"] = [{
+                    "type": "http",
+                    "url": args.target_url,
+                    "method": getattr(args, 'method', 'GET'),
+                    "expected_status": getattr(args, 'expected_status', 200)
                 }]
         config["load_profile"] = {
             "users": getattr(args, 'users', 10),
@@ -640,4 +650,30 @@ For more information, visit the project documentation.
             raise ValueError("No targets specified")
         for target in config["targets"]:
             if target.get("type") not in ["http", "database", "message_queue"]:
-                raise ValueError("Invalid target type") 
+                raise ValueError("Invalid target type")
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="NLM CLI Interface")
+    parser.add_argument('--config', type=str, help='Path to test config YAML')
+    parser.add_argument('--output', type=str, help='Output directory for reports')
+    args, unknown = parser.parse_known_args()
+
+    config_manager = ConfigManager()
+    cli = CLIInterface(config_manager)
+
+    if args.config and args.output:
+        # Non-interactive mode for integration test
+        import yaml
+        import os
+        from exporters.csv_exporter import CSVExporter
+        with open(args.config, 'r') as f:
+            test_config = yaml.safe_load(f)
+        results = cli.test_runner.run_test_sync(test_config)
+        exporter = CSVExporter()
+        output_dir = args.output
+        os.makedirs(output_dir, exist_ok=True)
+        csv_path = exporter.export_results(results.get('results', []), results, filename=os.path.join(output_dir, 'integration_test_results.csv'))
+        print(f"Results exported to: {csv_path}")
+    else:
+        cli.run() 
