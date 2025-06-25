@@ -33,6 +33,11 @@ jobs:
           pip install pytest
           pytest windsurf-project/tests
 
+      - name: Run integration tests
+        run: |
+          pip install pytest
+          pytest -m integration windsurf-project/tests
+
       - name: Deploy to AWS (dev)
         if: github.ref == 'refs/heads/dev'
         run: |
