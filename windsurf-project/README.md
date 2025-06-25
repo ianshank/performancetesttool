@@ -8,10 +8,17 @@ A comprehensive Python-based load testing tool with AI-powered analysis, designe
 - **Enterprise Integration**: AWS CloudWatch, Datadog, and Splunk metrics collection
 - **Dual Interface**: PyQt6 GUI and CLI for flexible usage
 - **Real-time Visualization**: Streamlit dashboards with interactive charts
-- **AI Analysis**: LLM-powered test result interpretation
+- **AI Analysis**: LLM-powered test result interpretation with enhanced insights
 - **Multi-Environment Support**: Dev, QA, Stage, and Production environments
 - **Secure Authentication**: IAM roles, credentials, and AWS profiles
 - **Export Capabilities**: CSV export for offline analysis
+- **Enhanced Analytics**: 
+  - Detailed performance insights
+  - User and target breakdown analysis
+  - Time series analysis with trend detection
+  - Percentile-based performance metrics
+  - Response time distribution analysis
+  - Error pattern recognition
 
 ## Quick Start
 
@@ -127,6 +134,92 @@ src/
 └── utils/          # Common utilities
 ```
 
+## Test Results Analysis
+
+### Performance Metrics
+
+The tool now provides comprehensive performance analysis:
+
+```python
+{
+    "total_requests": 1000,
+    "successful_requests": 950,
+    "failed_requests": 50,
+    "success_rate": 0.95,
+    "avg_response_time": 0.234,
+    "percentiles": {
+        "p50": 0.2,
+        "p95": 0.5,
+        "p99": 0.8
+    },
+    "response_time_distribution": {
+        "very_fast": 200,    # < 100ms
+        "fast": 500,         # 100-500ms
+        "moderate": 200,     # 500ms-1s
+        "slow": 80,          # 1-3s
+        "very_slow": 20      # > 3s
+    }
+}
+```
+
+### User Analysis
+
+Track performance by user:
+
+```python
+{
+    "user_1": {
+        "total_requests": 100,
+        "successful_requests": 95,
+        "failed_requests": 5,
+        "avg_response_time": 0.2,
+        "errors": ["Timeout", "Server Error"]
+    }
+}
+```
+
+### Target Analysis
+
+Monitor performance by endpoint:
+
+```python
+{
+    "GET /api/v1/users": {
+        "total_requests": 500,
+        "successful_requests": 480,
+        "failed_requests": 20,
+        "avg_response_time": 0.15,
+        "error_patterns": {
+            "Timeout": 15,
+            "Validation Error": 5
+        }
+    }
+}
+```
+
+### Time Series Analysis
+
+Track performance trends:
+
+```python
+{
+    "time_buckets": [
+        {
+            "timestamp": "2025-01-01T10:00:00",
+            "requests": 100,
+            "success_rate": 0.95,
+            "avg_response_time": 0.2
+        }
+    ],
+    "trend_analysis": {
+        "response_time_trend": "stable",
+        "success_rate_trend": "improving",
+        "performance_degradation": false,
+        "stability_score": 0.95
+    }
+}
+```
+
 ## Testing
 
 ### Running Tests
@@ -144,10 +237,9 @@ pytest -v tests/
 pytest --cov=src tests/
 
 # Run specific test suite
-python tests/run_tests.py --suite core
-python tests/run_tests.py --suite utils
-python tests/run_tests.py --suite ai
-python tests/run_tests.py --suite cli
+pytest tests/test_test_engine.py    # Test engine tests
+pytest tests/test_ai_analysis.py    # AI analysis tests
+pytest tests/test_functional.py     # Functional tests
 
 # Run integration tests
 python tests/run_tests.py --integration
@@ -156,18 +248,32 @@ python tests/run_tests.py --integration
 python tests/run_tests.py --deps
 ```
 
-### Test Structure
+### Test Coverage
 
-```
-tests/
-├── test_basic_functionality.py    # Basic functionality tests
-├── test_test_engine.py           # Core test engine tests
-├── test_test_runner.py           # Test runner tests
-├── test_config.py                # Configuration management tests
-├── test_ai_analysis.py           # AI analysis engine tests
-├── test_cli.py                   # CLI interface tests
-└── run_tests.py                  # Test runner script
-```
+The test suite now includes:
+
+- **Core Engine Tests**:
+  - Enhanced results summary generation
+  - Performance insights analysis
+  - User and target breakdown analysis
+  - Time series analysis with trend detection
+  - Database query simulation
+  - Message queue operation simulation
+
+- **AI Analysis Tests**:
+  - Raw data analysis
+  - Performance bottleneck detection
+  - Error pattern recognition
+  - Test run comparison
+  - Trend analysis
+  - Risk assessment
+
+- **Functional Tests**:
+  - End-to-end test execution
+  - Dashboard integration
+  - GUI functionality
+  - CLI operations
+  - Data export
 
 ### Test Categories
 
@@ -175,56 +281,8 @@ tests/
 - **Integration Tests**: Test component interactions
 - **Async Tests**: Test asynchronous functionality
 - **Mock Tests**: Test with mocked external dependencies
-
-### Installing Test Dependencies
-
-```bash
-pip install -r requirements-test.txt
-```
-
-### Test Configuration
-
-The project uses `pytest.ini` for test configuration:
-
-- Test discovery: `tests/` directory
-- Test file pattern: `test_*.py`
-- Test class pattern: `Test*`
-- Test function pattern: `test_*`
-- Markers for categorizing tests
-- Warning filters for clean output
-
-### Coverage Reporting
-
-Generate coverage reports:
-
-```bash
-# Terminal coverage report
-pytest --cov=src --cov-report=term tests/
-
-# HTML coverage report
-pytest --cov=src --cov-report=html tests/
-
-# XML coverage report (for CI/CD)
-pytest --cov=src --cov-report=xml tests/
-```
-
-### Continuous Integration
-
-The test suite is designed to run in CI/CD pipelines:
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-pip install -r requirements-test.txt
-
-# Run tests with coverage
-pytest --cov=src --cov-report=xml --cov-report=term tests/
-
-# Run linting
-flake8 src/
-black --check src/
-mypy src/
-```
+- **Functional Tests**: End-to-end functionality testing
+- **Performance Tests**: Test timing and resource usage
 
 ## Contributing
 

@@ -94,21 +94,27 @@ Main Menu:
         print(menu)
     
     def _run_quick_test(self):
-        """Run a quick test with default settings"""
+        print("[DEBUG] Entered _run_quick_test")
         print("\n=== Quick Test ===")
         
         # Get target URL
+        print("[DEBUG] Prompting for target URL")
         url = input("Enter target URL (default: http://localhost:8080/health): ").strip()
         if not url:
             url = "http://localhost:8080/health"
+        print(f"[DEBUG] Got URL: {url}")
         
         # Get number of users
+        print("[DEBUG] Prompting for number of users")
         users_input = input("Enter number of users (default: 10): ").strip()
         users = int(users_input) if users_input.isdigit() else 10
+        print(f"[DEBUG] Got users: {users}")
         
         # Get test duration
+        print("[DEBUG] Prompting for test duration")
         duration_input = input("Enter test duration in seconds (default: 60): ").strip()
         duration = int(duration_input) if duration_input.isdigit() else 60
+        print(f"[DEBUG] Got duration: {duration}")
         
         # Create test configuration
         test_config = {
@@ -128,7 +134,9 @@ Main Menu:
         }
         
         print(f"\nStarting quick test with {users} users for {duration} seconds...")
+        print("[DEBUG] Calling _execute_test")
         self._execute_test(test_config)
+        print("[DEBUG] Finished _execute_test")
     
     def _run_custom_test(self):
         """Run a custom test with detailed configuration"""
@@ -385,27 +393,40 @@ Main Menu:
         }
     
     def _execute_test(self, test_config: dict):
-        """Execute the test with given configuration"""
+        print("[DEBUG] Entered _execute_test")
         try:
             print(f"\nExecuting test: {test_config['test_name']}")
             print("Press Ctrl+C to stop the test early.")
             
             # Run the test synchronously and get summary
+            print("[DEBUG] Running test_runner.run_test_sync")
             results = self.test_runner.run_test_sync(test_config)
+            print("[DEBUG] Got results from test_runner")
             
             # Display results
+            print("[DEBUG] Calling _display_results")
             self._display_results(results)
+            print("[DEBUG] Finished _display_results")
 
-            # Export results to CSV
+            # Export results to CSV in 'reports' directory
+            print("[DEBUG] Preparing to export results to CSV")
             exporter = CSVExporter()
-            csv_path = exporter.export_results(results.get('results', []), results)
+            from datetime import datetime
+            import os
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"test_results_{timestamp}.csv"
+            output_dir = "reports"
+            os.makedirs(output_dir, exist_ok=True)
+            csv_path = exporter.export_results(results.get('results', []), results, filename=filename)
             print(f"\nResults exported to: {csv_path}")
+            print("[DEBUG] Finished exporting results to CSV")
             
         except KeyboardInterrupt:
             print("\nTest stopped by user.")
         except Exception as e:
             self.logger.error(f"Test execution failed: {e}")
             print(f"Test failed: {e}")
+        print("[DEBUG] Exiting _execute_test")
     
     def _display_results(self, results: dict):
         """Display test results"""

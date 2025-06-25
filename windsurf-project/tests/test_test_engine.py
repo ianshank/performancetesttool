@@ -66,13 +66,22 @@ class TestTestEngine:
         assert 0 < mysql_time < 0.1
         assert 0 < mongodb_time < 0.1
         
-        # Test query complexity
-        simple_query = test_engine._simulate_database_query('postgresql', 'SELECT 1')
-        complex_query = test_engine._simulate_database_query('postgresql', 'SELECT COUNT(*) FROM users JOIN orders')
-        write_query = test_engine._simulate_database_query('postgresql', 'INSERT INTO users VALUES (1, "test")')
+        # Test query complexity - run multiple times to account for randomness
+        simple_times = []
+        complex_times = []
+        write_times = []
+        for _ in range(5):
+            simple_times.append(test_engine._simulate_database_query('postgresql', 'SELECT 1'))
+            complex_times.append(test_engine._simulate_database_query('postgresql', 'SELECT COUNT(*) FROM users JOIN orders'))
+            write_times.append(test_engine._simulate_database_query('postgresql', 'INSERT INTO users VALUES (1, "test")'))
         
-        assert complex_query > simple_query  # Join queries should take longer
-        assert write_query > simple_query    # Write operations should take longer
+        # Use average times for comparison
+        avg_simple = sum(simple_times) / len(simple_times)
+        avg_complex = sum(complex_times) / len(complex_times)
+        avg_write = sum(write_times) / len(write_times)
+        
+        assert avg_complex > avg_simple  # Join queries should take longer
+        assert avg_write > avg_simple    # Write operations should take longer
     
     def test_simulate_mq_operation(self, test_engine):
         """Test message queue operation simulation"""
@@ -144,6 +153,238 @@ class TestTestEngine:
         assert isinstance(summary["user_breakdown"], dict)
         assert "time_series_analysis" in summary
         assert isinstance(summary["time_series_analysis"], dict)
+
+    def test_get_results_summary_enhanced(self, test_engine):
+        """Test enhanced results summary generation with new metrics"""
+        # Test data with timestamps and user IDs
+        results = [
+            {
+                "timestamp": 1000,
+                "response_time": 0.1,
+                "success": True,
+                "user_id": 1,
+                "method": "GET",
+                "url": "http://test.com/api",
+                "status_code": 200
+            },
+            {
+                "timestamp": 1001,
+                "response_time": 0.2,
+                "success": True,
+                "user_id": 1,
+                "method": "GET",
+                "url": "http://test.com/api",
+                "status_code": 200
+            },
+            {
+                "timestamp": 1002,
+                "response_time": 2.0,
+                "success": False,
+                "user_id": 2,
+                "method": "GET",
+                "url": "http://test.com/api",
+                "error": "Timeout",
+                "status_code": 500
+            }
+        ]
+        
+        summary = test_engine.get_results_summary(results)
+        
+        # Basic metrics
+        assert summary["total_requests"] == 3
+        assert summary["successful_requests"] == 2
+        assert summary["failed_requests"] == 1
+        assert summary["success_rate"] == pytest.approx(0.6667, 0.001)
+        assert summary["avg_response_time"] == pytest.approx(0.7667, 0.001)
+        
+        # New metrics
+        assert "percentiles" in summary
+        assert "response_time_distribution" in summary
+        assert "error_analysis" in summary
+        assert "performance_insights" in summary
+        assert "target_breakdown" in summary
+        assert "user_breakdown" in summary
+        assert "time_series_analysis" in summary
+        
+        # Verify percentiles
+        percentiles = summary["percentiles"]
+        assert "p50" in percentiles
+        assert "p95" in percentiles
+        assert "p99" in percentiles
+        
+        # Verify response time distribution
+        dist = summary["response_time_distribution"]
+        assert "buckets" in dist
+        assert "distribution_percentages" in dist
+        
+        # Verify target breakdown
+        target = summary["target_breakdown"]["GET http://test.com/api"]
+        assert target["total_requests"] == 3
+        assert target["successful_requests"] == 2
+        assert target["failed_requests"] == 1
+        
+        # Verify user breakdown
+        assert 1 in summary["user_breakdown"]  # User IDs are integers
+        assert 2 in summary["user_breakdown"]
+        assert summary["user_breakdown"][1]["successful_requests"] == 2
+        assert summary["user_breakdown"][2]["failed_requests"] == 1
+        
+        # Verify time series analysis
+        time_series = summary["time_series_analysis"]
+        assert "time_buckets" in time_series
+        assert "trend_analysis" in time_series
+
+    def test_performance_insights_generation(self, test_engine):
+        """Test performance insights generation"""
+        response_times = [0.1, 0.2, 0.3, 2.0, 0.15]
+        success_rate = 0.95
+        duration = 10
+        total_requests = 5
+        
+        insights = test_engine._generate_performance_insights(
+            response_times, success_rate, duration, total_requests
+        )
+        
+        assert "overall_assessment" in insights
+        assert "strengths" in insights
+        assert "concerns" in insights
+        assert "recommendations" in insights
+        
+        # Verify assessment logic
+        assert insights["overall_assessment"] in ["Excellent", "Good", "Acceptable", "Poor"]
+        
+        # Should identify high success rate as strength
+        assert any("success rate" in s.lower() for s in insights["strengths"])
+        
+        # Should identify performance issues somewhere in the analysis
+        all_messages = []
+        for key in ["strengths", "concerns", "recommendations"]:
+            all_messages.extend(insights.get(key, []))
+        
+        # Look for any performance-related terms
+        performance_terms = [
+            "slow", "fast", "response time", "latency",
+            "throughput", "performance", "delay"
+        ]
+        assert any(
+            any(term in msg.lower() for term in performance_terms)
+            for msg in all_messages
+        ), "No performance-related terms found in insights"
+
+    def test_analyze_target_performance(self, test_engine):
+        """Test target performance analysis"""
+        results = [
+            {
+                "method": "GET",
+                "url": "/api/v1/users",
+                "response_time": 0.1,
+                "success": True
+            },
+            {
+                "method": "POST",
+                "url": "/api/v1/users",
+                "response_time": 0.3,
+                "success": False,
+                "error": "Validation Error"
+            }
+        ]
+        
+        target_stats = test_engine._analyze_target_performance(results)
+        
+        # Verify GET endpoint stats
+        get_stats = target_stats["GET /api/v1/users"]
+        assert get_stats["total_requests"] == 1
+        assert get_stats["successful_requests"] == 1
+        assert get_stats["failed_requests"] == 0
+        assert get_stats["avg_response_time"] == 0.1
+        
+        # Verify POST endpoint stats
+        post_stats = target_stats["POST /api/v1/users"]
+        assert post_stats["total_requests"] == 1
+        assert post_stats["successful_requests"] == 0
+        assert post_stats["failed_requests"] == 1
+        assert post_stats["avg_response_time"] == 0.3
+        assert "Validation Error" in post_stats["errors"]
+
+    def test_analyze_user_performance(self, test_engine):
+        """Test user performance analysis"""
+        results = [
+            {
+                "user_id": 1,
+                "response_time": 0.1,
+                "success": True
+            },
+            {
+                "user_id": 1,
+                "response_time": 0.2,
+                "success": True
+            },
+            {
+                "user_id": 2,
+                "response_time": 0.5,
+                "success": False,
+                "error": "Timeout"
+            }
+        ]
+        
+        user_stats = test_engine._analyze_user_performance(results)
+        
+        # Verify user 1 stats
+        assert 1 in user_stats  # User IDs are integers
+        user1_stats = user_stats[1]
+        assert user1_stats["total_requests"] == 2
+        assert user1_stats["successful_requests"] == 2
+        assert user1_stats["failed_requests"] == 0
+        assert pytest.approx(user1_stats["avg_response_time"], 0.001) == 0.15
+        
+        # Verify user 2 stats
+        assert 2 in user_stats
+        user2_stats = user_stats[2]
+        assert user2_stats["total_requests"] == 1
+        assert user2_stats["successful_requests"] == 0
+        assert user2_stats["failed_requests"] == 1
+        assert pytest.approx(user2_stats["avg_response_time"], 0.001) == 0.5
+        assert "Timeout" in user2_stats["errors"]
+
+    def test_analyze_time_series(self, test_engine):
+        """Test time series analysis"""
+        results = [
+            {
+                "timestamp": 1000,
+                "response_time": 0.1,
+                "success": True
+            },
+            {
+                "timestamp": 1030,
+                "response_time": 0.2,
+                "success": True
+            },
+            {
+                "timestamp": 1090,
+                "response_time": 0.3,
+                "success": False
+            }
+        ]
+        
+        time_series = test_engine._analyze_time_series(results)
+        
+        assert "time_buckets" in time_series
+        assert "trend_analysis" in time_series
+        
+        # Verify time buckets
+        buckets = time_series["time_buckets"]
+        assert len(buckets) > 0
+        assert all(isinstance(b["timestamp"], int) for b in buckets)
+        assert all(isinstance(b["requests"], int) for b in buckets)
+        assert all(isinstance(b["success_rate"], float) for b in buckets)
+        assert all(isinstance(b["avg_response_time"], float) for b in buckets)
+        
+        # Verify trend analysis
+        trends = time_series["trend_analysis"]
+        assert "response_time_trend" in trends
+        assert "success_rate_trend" in trends
+        assert "performance_degradation" in trends
+        assert "stability_score" in trends
 
 
 class TestHTTPTestExecution:
