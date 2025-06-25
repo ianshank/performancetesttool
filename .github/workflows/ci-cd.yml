@@ -33,6 +33,12 @@ jobs:
           pip install pytest
           pytest windsurf-project/tests
 
+      - name: Deploy to AWS (dev)
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          echo "Deploying to dev environment..."
+          # Insert your dev deployment commands here
+
       - name: Deploy to AWS (placeholder)
         if: github.ref == 'refs/heads/prod' || github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/qa'
         env:
