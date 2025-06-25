@@ -1,0 +1,113 @@
+# Example NLM Test Configuration
+# This file demonstrates how to configure various types of load tests
+
+test_name: "API Load Test Example"
+environment: "dev"
+description: "Example load test for REST API endpoints"
+
+# Test targets - can be HTTP APIs, databases, or message queues
+targets:
+  # HTTP API target
+  - type: "http"
+    name: "Health Check Endpoint"
+    url: "https://api.example.com/health"
+    method: "GET"
+    headers:
+      Authorization: "Bearer your_token_here"
+      Content-Type: "application/json"
+    expected_status: 200
+    timeout: 30
+    
+  # Another HTTP endpoint
+  - type: "http"
+    name: "User API Endpoint"
+    url: "https://api.example.com/users"
+    method: "POST"
+    headers:
+      Authorization: "Bearer your_token_here"
+      Content-Type: "application/json"
+    body: '{"name": "Test User", "email": "test@example.com"}'
+    expected_status: 201
+    timeout: 30
+    
+  # Database target (PostgreSQL example)
+  - type: "database"
+    name: "Database Query Test"
+    db_type: "postgresql"
+    host: "localhost"
+    port: 5432
+    database: "testdb"
+    username: "testuser"
+    password: "testpass"
+    query: "SELECT COUNT(*) FROM users WHERE created_at > NOW() - INTERVAL '1 hour'"
+    
+  # Message queue target (RabbitMQ example)
+  - type: "message_queue"
+    name: "Message Queue Test"
+    mq_type: "rabbitmq"
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+    queue: "test_queue"
+    exchange: "test_exchange"
+    routing_key: "test"
+
+# Load profile configuration
+load_profile:
+  users: 50
+  ramp_up: 60  # seconds
+  duration: 300  # seconds
+  think_time: 1  # seconds between requests
+  timeout: 30  # seconds per request
+
+# Monitoring configuration
+monitoring:
+  # AWS CloudWatch metrics to collect
+  - provider: "aws"
+    metrics:
+      - "CPUUtilization"
+      - "RequestCount"
+      - "TargetResponseTime"
+    namespace: "AWS/ELB"
+    
+  # Datadog metrics to collect
+  - provider: "datadog"
+    metrics:
+      - "system.cpu.user"
+      - "system.mem.used"
+      - "http.requests"
+    tags:
+      - "env:dev"
+      - "service:api"
+      
+  # Splunk logs to search
+  - provider: "splunk"
+    query: "index=main sourcetype=api level=ERROR"
+    index: "main"
+    hours: 1
+
+# AI analysis configuration
+ai_analysis:
+  enabled: true
+  provider: "openai"  # or "anthropic"
+  model: "gpt-3.5-turbo"
+  include_raw_data: true
+  analysis_type: "comprehensive"
+
+# Export configuration
+export:
+  enabled: true
+  format: "csv"
+  output_dir: "reports"
+  include_metrics: true
+  include_analysis: true
+
+# Advanced settings
+advanced:
+  connection_pool_size: 10
+  retry_failed_requests: true
+  max_retries: 3
+  retry_delay: 1
+  validate_ssl: true
+  follow_redirects: true 

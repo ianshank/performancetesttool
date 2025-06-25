@@ -1,0 +1,74 @@
+{
+  "test_config": {
+    "test_name": "Mocked API Load Test",
+    "environment": "demo",
+    "targets": [
+      {
+        "type": "http",
+        "url": "https://httpbin.org/get",
+        "method": "GET",
+        "headers": {
+          "User-Agent": "NLM-Test-Tool/1.0",
+          "Accept": "application/json"
+        },
+        "expected_status": 200
+      },
+      {
+        "type": "http",
+        "url": "https://httpbin.org/post",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "User-Agent": "NLM-Test-Tool/1.0"
+        },
+        "expected_status": 200
+      }
+    ],
+    "load_profile": {
+      "users": 5,
+      "threads": 2,
+      "ramp_up": 10,
+      "duration": 30,
+      "think_time": 2
+    }
+  },
+  "summary": {
+    "total_requests": 150,
+    "successful_requests": 150,
+    "failed_requests": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.19353373686472575,
+    "min_response_time": 0.012668132781982422,
+    "max_response_time": 1.6859660148620605,
+    "throughput": 1.172012538287695,
+    "errors": []
+  },
+  "analysis": {
+    "summary": "Basic analysis of test",
+    "performance_analysis": {
+      "response_time_assessment": "Good - Acceptable response times",
+      "throughput_assessment": "Poor - Low throughput",
+      "error_analysis": "Success rate: 100.0% (0 failures)",
+      "bottlenecks": [],
+      "recommendations": []
+    },
+    "key_findings": [
+      "Total requests: 150",
+      "Success rate: 100.0%",
+      "Average response time: 0.194s",
+      "Throughput: 1.17 req/s"
+    ],
+    "risk_assessment": {
+      "severity": "low",
+      "description": "Performance appears acceptable"
+    },
+    "next_steps": [
+      "Review detailed metrics",
+      "Investigate any failures",
+      "Consider performance optimizations if needed"
+    ],
+    "timestamp": "2025-06-24T22:41:11.673965",
+    "llm_provider": "basic_analysis"
+  },
+  "timestamp": "2025-06-24T22:41:11.674394"
+}

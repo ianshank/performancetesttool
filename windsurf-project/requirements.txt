@@ -1,0 +1,45 @@
+# Core dependencies
+PyQt6==6.6.1
+streamlit==1.29.0
+pandas==2.1.4
+numpy==1.24.3
+requests==2.31.0
+aiohttp==3.9.1
+asyncio-throttle==1.0.2
+
+# AWS dependencies
+boto3==1.34.0
+botocore==1.34.0
+
+# Monitoring platform integrations
+datadog==0.48.0
+splunk-sdk==1.7.2
+
+# AI/LLM integration
+openai==1.3.7
+anthropic==0.7.8
+
+# Visualization
+plotly==5.17.0
+altair==5.1.2
+matplotlib==3.8.2
+
+# Database connectors
+pymongo==4.6.0
+psycopg2-binary==2.9.9
+pymysql==1.1.0
+
+# Message queue connectors
+pika==1.3.2
+redis==5.0.1
+
+# Configuration and utilities
+pyyaml==6.0.1
+python-dotenv==1.0.0
+click==8.1.7
+rich==13.7.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0 

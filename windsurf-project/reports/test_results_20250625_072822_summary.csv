@@ -1,0 +1,79 @@
+Metric,Value
+Total Requests,30
+Successful Requests,27
+Failed Requests,3
+Success Rate,90.00%
+Average Response Time,0.394s
+Min Response Time,0.013s
+Max Response Time,1.799s
+Throughput,1.47 req/s
+Test Duration,20.38s
+Requests/Second,1.47
+
+Percentiles
+Percentile,Response Time (s)
+p50,0.131
+p75,0.779
+p90,0.954
+p95,1.139
+p99,1.279
+p99.9,1.279
+
+Response Time Distribution
+Category,Count,Percentage
+very_fast,13,43.3%
+fast,8,26.7%
+moderate,6,20.0%
+slow,3,10.0%
+very_slow,0,0.0%
+
+Error Analysis
+Error Count,3
+Error Rate,10.00%
+
+Status Code Distribution
+Status Code,Count
+502,3
+
+Most Common Errors
+Error,Count
+"Expected 200, got 502",3
+
+Performance Insights
+Overall Assessment,Acceptable
+
+Strengths
+Fast response times (0.394s average)
+
+Concerns
+Low reliability (90.0% success rate)
+Low throughput (1.5 req/s)
+
+Recommendations
+Investigate and fix error patterns
+Consider horizontal scaling or performance optimization
+
+Target Performance Breakdown
+Target,Total Requests,Success Rate,Avg Response Time (s),Min Response Time (s),Max Response Time (s)
+GET http://httpbin.org/get,30,90.00%,0.394,0.013,1.799
+
+User Performance Breakdown
+User ID,Total Requests,Success Rate,Avg Response Time (s),Min Response Time (s),Max Response Time (s)
+0,5,60.00%,0.630,0.014,1.799
+1,5,80.00%,0.365,0.021,0.833
+2,5,100.00%,0.205,0.013,0.779
+3,5,100.00%,0.116,0.015,0.395
+4,5,100.00%,0.410,0.028,1.279
+5,5,100.00%,0.639,0.039,0.954
+
+Time Series Analysis
+Timestamp,Requests,Success Rate,Avg Response Time (s)
+1750850820,6,100.00%,0.128
+1750850880,24,87.50%,0.461
+
+Trend Analysis
+Metric,Value
+Response Time Trend,increasing
+Success Rate Trend,decreasing
+Performance Degradation,No
+Stability Score,0.28
