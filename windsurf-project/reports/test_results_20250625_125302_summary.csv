@@ -1,0 +1,61 @@
+Metric,Value
+Total Requests,30
+Successful Requests,30
+Failed Requests,0
+Success Rate,100.00%
+Average Response Time,0.579s
+Min Response Time,0.017s
+Max Response Time,1.909s
+Throughput,1.45 req/s
+Test Duration,20.70s
+Requests/Second,1.45
+
+Percentiles
+Percentile,Response Time (s)
+p50,0.420
+p75,0.762
+p90,1.297
+p95,1.526
+p99,1.689
+p99.9,1.689
+
+Response Time Distribution
+Category,Count,Percentage
+very_fast,8,26.7%
+fast,8,26.7%
+moderate,6,20.0%
+slow,8,26.7%
+very_slow,0,0.0%
+
+Error Analysis
+Error Count,0
+Error Rate,0.00%
+
+Performance Insights
+Overall Assessment,Acceptable
+
+Strengths
+High reliability (100.0% success rate)
+
+Concerns
+Low throughput (1.4 req/s)
+
+Recommendations
+Consider horizontal scaling or performance optimization
+
+Target Performance Breakdown
+Target,Total Requests,Success Rate,Avg Response Time (s),Min Response Time (s),Max Response Time (s)
+GET http://httpbin.org/get,30,100.00%,0.579,0.017,1.909
+
+User Performance Breakdown
+User ID,Total Requests,Success Rate,Avg Response Time (s),Min Response Time (s),Max Response Time (s)
+0,5,100.00%,0.921,0.107,1.909
+1,5,100.00%,0.478,0.017,1.041
+2,5,100.00%,0.507,0.020,1.297
+3,5,100.00%,0.502,0.018,1.526
+4,5,100.00%,0.731,0.393,1.165
+5,5,100.00%,0.335,0.025,1.050
+
+Time Series Analysis
+Timestamp,Requests,Success Rate,Avg Response Time (s)
+1750870320,30,100.00%,0.579

@@ -10,10 +10,9 @@ targets:
   # HTTP API target
   - type: "http"
     name: "Health Check Endpoint"
-    url: "https://api.example.com/health"
+    url: "http://httpbin.org/get"
     method: "GET"
     headers:
-      Authorization: "Bearer your_token_here"
       Content-Type: "application/json"
     expected_status: 200
     timeout: 30
@@ -21,13 +20,12 @@ targets:
   # Another HTTP endpoint
   - type: "http"
     name: "User API Endpoint"
-    url: "https://api.example.com/users"
+    url: "http://httpbin.org/post"
     method: "POST"
     headers:
-      Authorization: "Bearer your_token_here"
       Content-Type: "application/json"
     body: '{"name": "Test User", "email": "test@example.com"}'
-    expected_status: 201
+    expected_status: 200
     timeout: 30
     
   # Database target (PostgreSQL example)
@@ -55,9 +53,9 @@ targets:
 
 # Load profile configuration
 load_profile:
-  users: 50
-  ramp_up: 60  # seconds
-  duration: 300  # seconds
+  users: 2
+  ramp_up: 5  # seconds
+  duration: 10  # seconds
   think_time: 1  # seconds between requests
   timeout: 30  # seconds per request
 

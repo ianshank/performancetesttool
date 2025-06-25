@@ -1,0 +1,15 @@
+Metric,Value
+Total Requests,1
+Successful Requests,1
+Failed Requests,0
+Success Rate,100.00%
+Average Response Time,0.150s
+Min Response Time,0.150s
+Max Response Time,0.150s
+Throughput,0.00 req/s
+Test Duration,0.00s
+Requests/Second,0.00
+
+Percentiles
+Percentile,Response Time (s)
+p50,0.150

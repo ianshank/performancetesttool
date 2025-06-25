@@ -1,2 +1,0 @@
-total_requests,successful_requests,failed_requests,avg_response_time,min_response_time,max_response_time,throughput,errors,test_name,duration,start_time,end_time,timestamp
-300,300,0,0.6998986959457397,0.011708974838256836,3.18380069732666,1.4073029004735758,,Demo API Load Test,216.55278182029724,1750808840.948888,1750809057.501886,2025-06-24T19:50:57.501891
