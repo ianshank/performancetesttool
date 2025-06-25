@@ -188,24 +188,24 @@ ci-test: ## Run tests as in CI environment
 # Deploy to all environments (dev -> qa -> stage -> prod)
 deploy-all: ## Deploy to all environments: dev -> qa -> stage -> prod
 	@echo "🚀 Starting full deployment pipeline: dev -> qa -> stage -> prod"
-	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target prod --verbose
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py --verbose deploy --target prod
 
 # Deploy to specific environment
 deploy-dev: ## Deploy to DEV environment
 	@echo "🚀 Deploying to DEV environment"
-	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target dev --verbose
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py --verbose deploy --target dev
 
 deploy-qa: ## Deploy to QA environment  
 	@echo "🚀 Deploying to QA environment"
-	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target qa --verbose
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py --verbose deploy --target qa
 
 deploy-stage: ## Deploy to STAGE environment
 	@echo "🚀 Deploying to STAGE environment"
-	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target stage --verbose
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py --verbose deploy --target stage
 
 deploy-prod: ## Deploy to PRODUCTION environment
 	@echo "🚀 Deploying to PRODUCTION environment"
-	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target prod --verbose
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py --verbose deploy --target prod
 
 # Deployment status and management
 deploy-status: ## Show deployment status across environments
@@ -232,7 +232,7 @@ rollback-prod: ## Rollback PRODUCTION environment
 # Dry run deployments (for testing)
 deploy-dry-run: ## Dry run: Full deployment pipeline
 	@echo "🧪 Dry run: Full deployment pipeline"
-	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target prod --dry-run --verbose
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py --dry-run --verbose deploy --target prod
 
 # Quick Commands
 quick: regression-quick ## Quick regression test (alias)
