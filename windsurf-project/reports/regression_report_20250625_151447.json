@@ -1,0 +1,62 @@
+{
+  "timestamp": "2025-06-25T15:14:47.070671",
+  "environment": "stage",
+  "quick_mode": false,
+  "summary": {
+    "total_suites": 5,
+    "passed_suites": 0,
+    "failed_suites": 5,
+    "success_rate": 0.0,
+    "total_duration": 0.6511831283569336,
+    "deployment_approved": false
+  },
+  "suites": {
+    "critical": {
+      "type": "critical",
+      "exit_code": 4,
+      "duration": 0.13625192642211914,
+      "stdout": "",
+      "stderr": "/Users/iancruickshank/Documents/CascadeProjects/venv/lib/python3.9/site-packages/_pytest/config/__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nUsageError: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=/Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_critical_1750878886.json\n  inifile: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/pytest.ini\n  rootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=/Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_critical_1750878886.json\n  inifile: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/pytest.ini\n  rootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\n\n",
+      "passed": false
+    },
+    "configuration": {
+      "type": "configuration",
+      "exit_code": 4,
+      "duration": 0.1122291088104248,
+      "stdout": "",
+      "stderr": "/Users/iancruickshank/Documents/CascadeProjects/venv/lib/python3.9/site-packages/_pytest/config/__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nUsageError: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=/Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_configuration_1750878886.json\n  inifile: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/pytest.ini\n  rootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=/Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_configuration_1750878886.json\n  inifile: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/pytest.ini\n  rootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\n\n",
+      "passed": false
+    },
+    "integration": {
+      "type": "integration",
+      "exit_code": 4,
+      "duration": 0.11248636245727539,
+      "stdout": "",
+      "stderr": "/Users/iancruickshank/Documents/CascadeProjects/venv/lib/python3.9/site-packages/_pytest/config/__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nUsageError: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=/Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_integration_1750878886.json\n  inifile: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/pytest.ini\n  rootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=/Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_integration_1750878886.json\n  inifile: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/pytest.ini\n  rootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\n\n",
+      "passed": false
+    },
+    "performance": {
+      "type": "performance",
+      "exit_code": 4,
+      "duration": 0.17912602424621582,
+      "stdout": "",
+      "stderr": "/Users/iancruickshank/Documents/CascadeProjects/venv/lib/python3.9/site-packages/_pytest/config/__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nUsageError: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=/Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_performance_1750878886.json\n  inifile: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/pytest.ini\n  rootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=/Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_performance_1750878886.json\n  inifile: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/pytest.ini\n  rootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\n\n",
+      "passed": false
+    },
+    "stress": {
+      "type": "stress",
+      "exit_code": 4,
+      "duration": 0.11006283760070801,
+      "stdout": "",
+      "stderr": "/Users/iancruickshank/Documents/CascadeProjects/venv/lib/python3.9/site-packages/_pytest/config/__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nUsageError: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=/Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_stress_1750878886.json\n  inifile: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/pytest.ini\n  rootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\n__main__.py: error: unrecognized arguments: --json-report --json-report-file=/Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_stress_1750878886.json\n  inifile: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/pytest.ini\n  rootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\n\n",
+      "passed": false
+    }
+  },
+  "recommendations": [
+    "BLOCK DEPLOYMENT: Critical functionality tests failed",
+    "BLOCK DEPLOYMENT: Configuration validation failed",
+    "BLOCK DEPLOYMENT: Integration tests failed",
+    "WARNING: Performance benchmarks not met - review required",
+    "INFO: Stress tests failed - consider capacity planning"
+  ]
+}

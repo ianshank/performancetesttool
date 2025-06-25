@@ -1,0 +1,57 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [dev, qa, stage, prod]
+  pull_request:
+    branches: [dev, qa, stage, prod]
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r windsurf-project/requirements.txt
+
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          flake8 windsurf-project/src --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Run tests
+        run: |
+          pip install pytest
+          pytest windsurf-project/tests
+
+      - name: Run integration tests
+        run: |
+          pip install pytest
+          pytest -m integration windsurf-project/tests
+
+      - name: Deploy to AWS (dev)
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          echo "Deploying to dev environment..."
+          # Insert your dev deployment commands here
+
+      - name: Deploy to AWS (placeholder)
+        if: github.ref == 'refs/heads/prod' || github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/qa'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+        run: |
+          echo "Deploying to AWS..."
+          # Insert your deployment commands here, e.g.:
+          # aws s3 sync ...
+          # aws ecs update-service ... 
