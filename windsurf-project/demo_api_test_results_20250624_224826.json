@@ -1,0 +1,76 @@
+{
+  "test_config": {
+    "test_name": "Mocked API Load Test",
+    "environment": "demo",
+    "targets": [
+      {
+        "type": "http",
+        "url": "https://httpbin.org/get",
+        "method": "GET",
+        "headers": {
+          "User-Agent": "NLM-Test-Tool/1.0",
+          "Accept": "application/json"
+        },
+        "expected_status": 200
+      },
+      {
+        "type": "http",
+        "url": "https://httpbin.org/post",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "User-Agent": "NLM-Test-Tool/1.0"
+        },
+        "expected_status": 200
+      }
+    ],
+    "load_profile": {
+      "users": 5,
+      "threads": 2,
+      "ramp_up": 10,
+      "duration": 30,
+      "think_time": 2
+    }
+  },
+  "summary": {
+    "total_requests": 150,
+    "successful_requests": 149,
+    "failed_requests": 1,
+    "success_rate": 0.9933333333333333,
+    "avg_response_time": 0.322048978805542,
+    "min_response_time": 0.011684894561767578,
+    "max_response_time": 30.13638472557068,
+    "throughput": 0.9861250305251836,
+    "errors": [
+      "Expected 200, got 502"
+    ]
+  },
+  "analysis": {
+    "summary": "Basic analysis of test",
+    "performance_analysis": {
+      "response_time_assessment": "Good - Acceptable response times",
+      "throughput_assessment": "Poor - Low throughput",
+      "error_analysis": "Success rate: 99.3% (1 failures)",
+      "bottlenecks": [],
+      "recommendations": []
+    },
+    "key_findings": [
+      "Total requests: 150",
+      "Success rate: 99.3%",
+      "Average response time: 0.322s",
+      "Throughput: 0.99 req/s"
+    ],
+    "risk_assessment": {
+      "severity": "low",
+      "description": "Performance appears acceptable"
+    },
+    "next_steps": [
+      "Review detailed metrics",
+      "Investigate any failures",
+      "Consider performance optimizations if needed"
+    ],
+    "timestamp": "2025-06-24T22:48:26.190013",
+    "llm_provider": "basic_analysis"
+  },
+  "timestamp": "2025-06-24T22:48:26.190602"
+}
