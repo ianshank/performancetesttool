@@ -1,0 +1,50 @@
+{
+  "timestamp": "2025-06-25T15:20:49.915260",
+  "environment": "stage",
+  "quick_mode": true,
+  "summary": {
+    "total_suites": 4,
+    "passed_suites": 4,
+    "failed_suites": 0,
+    "success_rate": 1.0,
+    "total_duration": 13.603132963180542,
+    "deployment_approved": true
+  },
+  "suites": {
+    "critical": {
+      "type": "critical",
+      "exit_code": 0,
+      "duration": 11.967822790145874,
+      "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.9.6, pytest-7.4.3, pluggy-1.6.0 -- /Users/iancruickshank/Documents/CascadeProjects/venv/bin/python\ncachedir: .pytest_cache\nmetadata: {'Python': '3.9.6', 'Platform': 'macOS-15.5-arm64-arm-64bit', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'json-report': '1.5.0', 'timeout': '2.4.0', 'metadata': '3.1.1', 'asyncio': '0.21.1', 'mock': '3.12.0', 'anyio': '3.7.1'}}\nrootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\nconfigfile: pytest.ini\nplugins: json-report-1.5.0, timeout-2.4.0, metadata-3.1.1, asyncio-0.21.1, mock-3.12.0, anyio-3.7.1\ntimeout: 300.0s\ntimeout method: thread\ntimeout func_only: False\nasyncio: mode=strict\ncollecting ... collected 7 items\n\ntests/test_regression.py::TestCriticalFunctionality::test_config_manager_initialization PASSED [ 14%]\ntests/test_regression.py::TestCriticalFunctionality::test_test_engine_basic_operations PASSED [ 28%]\ntests/test_regression.py::TestCriticalFunctionality::test_test_runner_configuration PASSED [ 42%]\ntests/test_regression.py::TestCriticalFunctionality::test_http_test_execution \n-------------------------------- live log call ---------------------------------\n2025-06-25 15:20:36 [INFO] Starting HTTP test for GET https://httpbin.org/get (test_engine.py:113)\n2025-06-25 15:20:36 [INFO] Expected status: 200, Headers: {'User-Agent': 'NLM-Regression-Test'} (test_engine.py:114)\n2025-06-25 15:20:36 [INFO] Using 1 threads for 2 users (test_engine.py:123)\n2025-06-25 15:20:48 [INFO] HTTP test completed in 11.33 seconds using 1 threads (test_engine.py:162)\nPASSED                                                                   [ 57%]\ntests/test_regression.py::TestCriticalFunctionality::test_cli_argument_parsing PASSED [ 71%]\ntests/test_regression.py::TestCriticalFunctionality::test_results_summary_generation PASSED [ 85%]\ntests/test_regression.py::TestCriticalFunctionality::test_csv_export_functionality \n-------------------------------- live log call ---------------------------------\n2025-06-25 15:20:48 [INFO] Exported detailed results to /var/folders/1p/8_mzk6q95bv1w31pwcdlxwv80000gn/T/tmpgpy00y2y.csv (csv_exporter.py:563)\n2025-06-25 15:20:48 [INFO] Exported summary to /var/folders/1p/8_mzk6q95bv1w31pwcdlxwv80000gn/T/tmpgpy00y2y_summary.csv (csv_exporter.py:564)\nPASSED                                                                   [100%]\n\n--------------------------------- JSON report ----------------------------------\nreport saved to: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_critical_1750879236.json\n============================= slowest 10 durations =============================\n11.33s call     tests/test_regression.py::TestCriticalFunctionality::test_http_test_execution\n\n(9 durations < 0.005s hidden.  Use -vv to show these durations.)\n============================== 7 passed in 11.71s ==============================\n",
+      "stderr": "",
+      "passed": true
+    },
+    "configuration": {
+      "type": "configuration",
+      "exit_code": 0,
+      "duration": 0.5102179050445557,
+      "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.9.6, pytest-7.4.3, pluggy-1.6.0 -- /Users/iancruickshank/Documents/CascadeProjects/venv/bin/python\ncachedir: .pytest_cache\nmetadata: {'Python': '3.9.6', 'Platform': 'macOS-15.5-arm64-arm-64bit', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'json-report': '1.5.0', 'timeout': '2.4.0', 'metadata': '3.1.1', 'asyncio': '0.21.1', 'mock': '3.12.0', 'anyio': '3.7.1'}}\nrootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\nconfigfile: pytest.ini\nplugins: json-report-1.5.0, timeout-2.4.0, metadata-3.1.1, asyncio-0.21.1, mock-3.12.0, anyio-3.7.1\ntimeout: 300.0s\ntimeout method: thread\ntimeout func_only: False\nasyncio: mode=strict\ncollecting ... collected 3 items\n\ntests/test_regression.py::TestConfigurationRegression::test_environment_configurations PASSED [ 33%]\ntests/test_regression.py::TestConfigurationRegression::test_credential_validation PASSED [ 66%]\ntests/test_regression.py::TestConfigurationRegression::test_config_file_access PASSED [100%]\n\n--------------------------------- JSON report ----------------------------------\nreport saved to: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_configuration_1750879248.json\n============================= slowest 10 durations =============================\n\n(9 durations < 0.005s hidden.  Use -vv to show these durations.)\n============================== 3 passed in 0.35s ===============================\n",
+      "stderr": "",
+      "passed": true
+    },
+    "integration": {
+      "type": "integration",
+      "exit_code": 0,
+      "duration": 0.6316769123077393,
+      "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.9.6, pytest-7.4.3, pluggy-1.6.0 -- /Users/iancruickshank/Documents/CascadeProjects/venv/bin/python\ncachedir: .pytest_cache\nmetadata: {'Python': '3.9.6', 'Platform': 'macOS-15.5-arm64-arm-64bit', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'json-report': '1.5.0', 'timeout': '2.4.0', 'metadata': '3.1.1', 'asyncio': '0.21.1', 'mock': '3.12.0', 'anyio': '3.7.1'}}\nrootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\nconfigfile: pytest.ini\nplugins: json-report-1.5.0, timeout-2.4.0, metadata-3.1.1, asyncio-0.21.1, mock-3.12.0, anyio-3.7.1\ntimeout: 300.0s\ntimeout method: thread\ntimeout func_only: False\nasyncio: mode=strict\ncollecting ... collected 3 items\n\ntests/test_regression.py::TestIntegrationRegression::test_end_to_end_workflow PASSED [ 33%]\ntests/test_regression.py::TestIntegrationRegression::test_ai_analysis_integration \n-------------------------------- live log call ---------------------------------\n2025-06-25 15:20:49 [INFO] OpenAI client initialized (analysis_engine.py:54)\nPASSED                                                                   [ 66%]\ntests/test_regression.py::TestIntegrationRegression::test_export_integration PASSED [100%]\n\n--------------------------------- JSON report ----------------------------------\nreport saved to: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_integration_1750879248.json\n============================= slowest 10 durations =============================\n0.12s call     tests/test_regression.py::TestIntegrationRegression::test_ai_analysis_integration\n\n(8 durations < 0.005s hidden.  Use -vv to show these durations.)\n============================== 3 passed in 0.46s ===============================\n",
+      "stderr": "",
+      "passed": true
+    },
+    "performance": {
+      "type": "performance",
+      "exit_code": 0,
+      "duration": 0.49272799491882324,
+      "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.9.6, pytest-7.4.3, pluggy-1.6.0 -- /Users/iancruickshank/Documents/CascadeProjects/venv/bin/python\ncachedir: .pytest_cache\nmetadata: {'Python': '3.9.6', 'Platform': 'macOS-15.5-arm64-arm-64bit', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'json-report': '1.5.0', 'timeout': '2.4.0', 'metadata': '3.1.1', 'asyncio': '0.21.1', 'mock': '3.12.0', 'anyio': '3.7.1'}}\nrootdir: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project\nconfigfile: pytest.ini\nplugins: json-report-1.5.0, timeout-2.4.0, metadata-3.1.1, asyncio-0.21.1, mock-3.12.0, anyio-3.7.1\ntimeout: 300.0s\ntimeout method: thread\ntimeout func_only: False\nasyncio: mode=strict\ncollecting ... collected 2 items\n\ntests/test_regression.py::TestPerformanceRegression::test_simulation_performance PASSED [ 50%]\ntests/test_regression.py::TestPerformanceRegression::test_results_processing_performance PASSED [100%]\n\n--------------------------------- JSON report ----------------------------------\nreport saved to: /Users/iancruickshank/Documents/CascadeProjects/windsurf-project/reports/regression_performance_1750879249.json\n============================= slowest 10 durations =============================\n\n(6 durations < 0.005s hidden.  Use -vv to show these durations.)\n============================== 2 passed in 0.34s ===============================\n",
+      "stderr": "",
+      "passed": true
+    }
+  },
+  "recommendations": [
+    "APPROVE DEPLOYMENT: All tests passed"
+  ]
+}

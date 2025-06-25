@@ -1,0 +1,2 @@
+timestamp,user_id,method,url,status_code,response_time,success,error,request_size,response_size
+1640995201,,GET,http://api.example.com/users,200,0.15,True,,,
