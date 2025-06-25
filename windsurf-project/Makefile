@@ -181,6 +181,59 @@ ci-test: ## Run tests as in CI environment
 		--ignore=$(TESTS_DIR)/test_integration.py \
 		--cov=$(SRC_DIR) --cov-report=xml
 
+# ============================================================================
+# DEPLOYMENT COMMANDS
+# ============================================================================
+
+# Deploy to all environments (dev -> qa -> stage -> prod)
+deploy-all: ## Deploy to all environments: dev -> qa -> stage -> prod
+	@echo "🚀 Starting full deployment pipeline: dev -> qa -> stage -> prod"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target prod --verbose
+
+# Deploy to specific environment
+deploy-dev: ## Deploy to DEV environment
+	@echo "🚀 Deploying to DEV environment"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target dev --verbose
+
+deploy-qa: ## Deploy to QA environment  
+	@echo "🚀 Deploying to QA environment"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target qa --verbose
+
+deploy-stage: ## Deploy to STAGE environment
+	@echo "🚀 Deploying to STAGE environment"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target stage --verbose
+
+deploy-prod: ## Deploy to PRODUCTION environment
+	@echo "🚀 Deploying to PRODUCTION environment"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target prod --verbose
+
+# Deployment status and management
+deploy-status: ## Show deployment status across environments
+	@echo "📊 Deployment status across environments"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py status
+
+# Rollback commands
+rollback-dev: ## Rollback DEV environment
+	@echo "🔄 Rolling back DEV environment"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py rollback dev
+
+rollback-qa: ## Rollback QA environment
+	@echo "🔄 Rolling back QA environment"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py rollback qa
+
+rollback-stage: ## Rollback STAGE environment
+	@echo "🔄 Rolling back STAGE environment"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py rollback stage
+
+rollback-prod: ## Rollback PRODUCTION environment
+	@echo "🔄 Rolling back PRODUCTION environment"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py rollback prod
+
+# Dry run deployments (for testing)
+deploy-dry-run: ## Dry run: Full deployment pipeline
+	@echo "🧪 Dry run: Full deployment pipeline"
+	$(PYTHON) $(SCRIPTS_DIR)/deploy.py deploy --target prod --dry-run --verbose
+
 # Quick Commands
 quick: regression-quick ## Quick regression test (alias)
 stage: regression-stage ## Stage regression test (alias)
