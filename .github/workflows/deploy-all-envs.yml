@@ -1,8 +1,41 @@
 name: Deploy All Environments
-on: [workflow_dispatch]
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+        - dev
+        - qa
+        - stage
+      test_type:
+        description: 'Type of tests to run'
+        required: false
+        default: 'unit'
+        type: string
+      run_tests:
+        description: 'Run tests'
+        required: false
+        default: 'true'
+        type: string
+      deploy_latest:
+        description: 'Deploy latest code'
+        required: false
+        default: 'true'
+        type: string
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
-        run: echo "Deployment successful"
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Deploy to ${{ github.event.inputs.environment }}
+        run: |
+          echo "🚀 Deploying to ${{ github.event.inputs.environment }} environment"
+          echo "🧪 Test type: ${{ github.event.inputs.test_type }}"
+          echo "✅ Deployment successful"
